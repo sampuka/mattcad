@@ -1,4 +1,7 @@
 #include "Mattcad.hpp"
+#include "Entity.hpp"
+#include "VarSetEntity.hpp"
+#include "EvaluationEntity.hpp"
 
 #include <iostream>
 #include <algorithm>
@@ -17,6 +20,8 @@ Mattcad::Mattcad()
 
 Mattcad::~Mattcad()
 {
+    for (Entity *ent : ents)
+	delete ent;
 }
 
 bool Mattcad::isOpen()
@@ -30,9 +35,25 @@ void Mattcad::createEntity(string strexp, unsigned int xpos, unsigned int ypos)
 
     strexp.erase(std::remove(strexp.begin(), strexp.end(), ' '), strexp.end());
 
-    
-    
-    //cout << "String is now \"" << strexp << "\"" << endl;
+    regex rVarSet("((\\w)+):=(\\d+)");
+    regex rEvaluation("((\\w|[*/\\+-])+)=");
+
+    smatch match;
+
+    if (regex_match(strexp, match, rVarSet))
+    {
+	cout << "Matched VarSet" << endl;
+	ents.push_back(new VarSetEntity(strexp, xpos, ypos, expfont));
+    }
+    else if (regex_match(strexp, match, rEvaluation))
+    {
+	cout << "Matched Evaluation" << endl;
+	ents.push_back(new EvaluationEntity(strexp, xpos, ypos, expfont));
+    }
+    else
+    {
+	cout << "No entity match" << endl;
+    }
 }
 
 void Mattcad::main_loop()
@@ -104,6 +125,8 @@ void Mattcad::initGraphics()
     bgtexture.update(bgpixels);
     bgsprite.setTexture(bgtexture);
     delete bgpixels;
+
+    expfont.loadFromFile("Cabin-Regular.ttf");
 }
 
 void Mattcad::drawScreen()
@@ -112,4 +135,9 @@ void Mattcad::drawScreen()
     bgsprite.setTextureRect(sf::IntRect(0, 0, wsize.x, wsize.y));
     
     window->draw(bgsprite);
+
+    for (Entity *ent : ents)
+    {
+	ent->draw(window);
+    }
 }

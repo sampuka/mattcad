@@ -25,6 +25,7 @@ private:
     void initGraphics();
     sf::Texture bgtexture;
     sf::Sprite bgsprite;
+    sf::Font expfont;
 
     void drawScreen();
     

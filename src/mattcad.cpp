@@ -7,7 +7,8 @@ int main()
 {
 	Mattcad *screen = new Mattcad;
 
-	screen->createEntity("t = 6", 3, 3);
+	screen->createEntity("tg := 62", 3, 3);
+	screen->createEntity("tg*2 =", 3, 5);
 
 	while(screen->isOpen())
 		;
