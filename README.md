@@ -3,6 +3,7 @@ An extremely ambitious ripoff
 
 # Dependecies
 SFML - dunno what version is needed, newest just werks
+c++11 probably, who cares
 
 # Instruction
 1. Download how you see fit
