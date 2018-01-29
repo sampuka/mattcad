@@ -10,4 +10,4 @@ c++11 probably, who cares
 2. Navigate to main folder and do make
 3. ./mattcad
 4. ???
-5. No profit project
+5. Not-for-profit project
