@@ -1,7 +1,7 @@
 # Mattcad
 An extremely ambitious ripoff
 
-# Dependecies
+# Dependencies
 SFML - dunno what version is needed, newest just werks
 c++11 probably, who cares
 
